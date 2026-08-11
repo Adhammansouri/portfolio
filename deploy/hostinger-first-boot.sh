@@ -21,13 +21,13 @@ if [ "${APP_ENV:-local}" != "production" ]; then
   echo "WARN: Set APP_ENV=production in .env before going live."
 fi
 
+echo "==> Deploy (composer + migrate)"
+bash deploy/hostinger.sh
+
 if ! grep -qE '^APP_KEY=base64:' .env 2>/dev/null; then
   echo "==> Generate APP_KEY"
   php artisan key:generate --force
 fi
-
-echo "==> Deploy"
-bash deploy/hostinger.sh
 
 echo "==> Seed portfolio content"
 php artisan db:seed --class=Database\\Seeders\\PortfolioSeeder --force
