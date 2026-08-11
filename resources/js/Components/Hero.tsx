@@ -17,7 +17,6 @@ export default function Hero({ profile }: { profile: Profile }) {
         <section className="hero-section relative isolate overflow-hidden">
             <div className="absolute inset-0 hero-mesh" aria-hidden />
             <div className="absolute inset-0 hero-grain" aria-hidden />
-            <div className="hero-portrait-atmosphere" aria-hidden />
 
             <div className="relative mx-auto grid max-w-6xl items-end gap-0 px-5 pb-0 pt-0 sm:gap-8 sm:pt-10 md:min-h-[min(760px,calc(100dvh-var(--header-height))] md:grid-cols-12 md:gap-0 md:px-8 md:pt-14">
                 {/* Portrait — dominant anchor on mobile */}
@@ -29,8 +28,6 @@ export default function Hero({ profile }: { profile: Profile }) {
                 >
                     {profile.photo_path && (
                         <div className="portrait-stage relative w-full max-w-[min(88vw,22rem)] sm:max-w-[19rem] md:max-w-none md:w-full md:translate-x-6 lg:translate-x-10 rtl:md:-translate-x-6 rtl:lg:-translate-x-10">
-                            <div className="portrait-atmosphere" aria-hidden />
-
                             <img
                                 src={profile.photo_path}
                                 alt={profile.name}
@@ -47,7 +44,7 @@ export default function Hero({ profile }: { profile: Profile }) {
                 </motion.div>
 
                 {/* Copy — overlaps portrait base on mobile for editorial flow */}
-                <div className="relative z-20 order-2 -mt-10 flex flex-col justify-center pb-8 sm:-mt-12 sm:pb-10 md:order-1 md:mt-0 md:col-span-7 md:pb-16 lg:col-span-7">
+                <div className="relative z-20 order-2 -mt-6 flex flex-col justify-center pb-8 sm:-mt-8 sm:pb-10 md:order-1 md:mt-0 md:col-span-7 md:pb-16 lg:col-span-7">
                     <motion.div
                         initial={reduce ? false : { opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
