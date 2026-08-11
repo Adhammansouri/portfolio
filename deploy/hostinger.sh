@@ -83,16 +83,10 @@ if [ ! -f index.php ] || [ ! -f .htaccess ]; then
 fi
 
 echo "==> Frontend build"
-if [ -f public/build/manifest.json ]; then
-  echo "    public/build/manifest.json OK"
-elif command -v npm >/dev/null 2>&1; then
-  export PATH=/opt/alt/alt-nodejs22/root/usr/bin:$PATH
-  npm ci --legacy-peer-deps
-  npm run build
-else
-  echo "ERROR: public/build/manifest.json missing. Run npm run build locally and git push public/build."
-  exit 1
-fi
+# shellcheck source=lib/frontend-build.sh
+source "${ROOT}/deploy/lib/frontend-build.sh"
+FRONTEND_ROOT="$ROOT"
+frontend_ensure_production always
 
 echo "==> Permissions"
 chmod -R ug+rwx storage bootstrap/cache 2>/dev/null || true

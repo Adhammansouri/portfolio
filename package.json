@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "tsc && vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "setup:hooks": "node -e \"require('child_process').execSync(process.platform==='win32'?'powershell -File deploy/setup-hooks.ps1':'bash deploy/setup-hooks.sh',{stdio:'inherit'})\""
     },
     "dependencies": {
         "@inertiajs/react": "^2.0.0",

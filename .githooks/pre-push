@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Ensure Vite production assets are committed before pushing main.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+pushing_main=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [[ "$remote_ref" == "refs/heads/main" ]]; then
+    pushing_main=1
+    break
+  fi
+done
+
+if [ "$pushing_main" -eq 0 ]; then
+  exit 0
+fi
+
+echo "==> pre-push: building production assets for main"
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "ERROR: npm is required before pushing main."
+  exit 1
+fi
+
+npm run build
+
+if [ ! -f public/build/manifest.json ]; then
+  echo "ERROR: public/build/manifest.json missing after build."
+  exit 1
+fi
+
+if ! git diff --quiet -- public/build 2>/dev/null || [ -n "$(git ls-files --others --exclude-standard public/build)" ]; then
+  echo "==> pre-push: committing public/build"
+  git add -f public/build
+  git commit -m "build: vite production assets" --no-verify
+  echo "==> pre-push: build assets committed; continuing push"
+fi
+
+exit 0
