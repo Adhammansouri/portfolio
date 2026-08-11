@@ -1,0 +1,22 @@
+---
+description: Portfolio identity, tone, and honest bilingual content rules
+alwaysApply: true
+---
+
+# Portfolio Content Rules
+
+## Identity
+- Owner: Adham Mansour — AI Applications Lead · Full-Stack Engineer (Mansoura, Egypt)
+- Contact: adhammansour500@gmail.com · 01003891625 · LinkedIn adham-mansour11 · GitHub Adhammansouri
+- Site is bilingual EN/AR; never invent translations that change meaning
+
+## Honest framing
+- AlBadr ERP AI uses OpenAI GPT-4o vision for invoice OCR (not Tesseract) and Cloudflare Workers AI + Vectorize for docs RAG (not LangChain/Pinecone unless code proves it)
+- There is no separate CRM module in ERP — frame Client lifecycle + Support Panel as CRM capabilities
+- Private GitHub repos (nazm, X-PAY, smash-academy): note private / demo on request; do not claim public source
+- Prefer CV titles when LinkedIn titles conflict (e.g. AI Team Leader & Backend Developer at Al Badr)
+
+## Tone
+- Confident, specific, outcome-oriented
+- No hype fluff ("revolutionary", "cutting-edge" spam)
+- Case studies: challenge → solution → results

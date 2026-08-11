@@ -1,0 +1,14 @@
+---
+description: Laravel Inertia conventions for this portfolio
+globs: app/**/*.php,routes/**/*.php,resources/js/**/*
+alwaysApply: false
+---
+
+# Laravel + Inertia
+
+- Content is seeder-only (no Filament/admin)
+- Locale prefix `/{locale?}` with `en|ar`; share `locale`, `dir`, `translations` via HandleInertiaRequests
+- Controllers return Inertia pages; keep props typed and lean
+- UI chrome strings live in `lang/en.json` + `lang/ar.json`
+- DB translations for projects/experience/profile bios
+- Contact form validates and stores to `contact_messages`

@@ -1,0 +1,25 @@
+---
+description: Precision Studio visual system for portfolio UI
+globs: resources/js/**/*.{tsx,css}, resources/css/**/*.css
+alwaysApply: false
+---
+
+# Precision Studio Design
+
+## Tokens
+- Ink `#0B1220`, Paper `#F3F0EA`, Accent `#0F766E`, Steel `#64748B`, Sand `#D6C7A1`
+- Display: Syne · Body: IBM Plex Sans (+ Arabic)
+
+## Hard rules
+- Brand name is hero-level; do not let a generic headline overpower it
+- Full-bleed atmospheric hero (grain + mesh); photo is dominant visual anchor
+- No floating badges/stat chips on the photo; no hero cards
+- Prefer case-study rows over card grids
+- One job per section
+- Avoid purple gradients, cream+terracotta serif clichés, neon cyberpunk, rounded-full pill spam
+
+## Motion budget
+1. Hero name + photo reveal
+2. Project row hover/slide
+3. Section scroll fade
+Respect `prefers-reduced-motion`
