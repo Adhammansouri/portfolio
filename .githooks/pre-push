@@ -2,14 +2,20 @@
 # Ensure Vite production assets are committed before pushing main.
 set -euo pipefail
 
+if [ "${PORTFOLIO_PRE_PUSH_RECURSIVE:-}" = "1" ]; then
+  exit 0
+fi
+
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
+remote="${1:-origin}"
 
 pushing_main=0
+refs=()
 while read -r local_ref local_sha remote_ref remote_sha; do
+  refs+=("$local_ref $remote_ref")
   if [[ "$remote_ref" == "refs/heads/main" ]]; then
     pushing_main=1
-    break
   fi
 done
 
@@ -31,11 +37,23 @@ if [ ! -f public/build/manifest.json ]; then
   exit 1
 fi
 
+committed=0
 if ! git diff --quiet -- public/build 2>/dev/null || [ -n "$(git ls-files --others --exclude-standard public/build)" ]; then
   echo "==> pre-push: committing public/build"
   git add -f public/build
   git commit -m "build: vite production assets" --no-verify
-  echo "==> pre-push: build assets committed; continuing push"
+  committed=1
+fi
+
+if [ "$committed" -eq 1 ]; then
+  echo "==> pre-push: pushing build assets commit"
+  export PORTFOLIO_PRE_PUSH_RECURSIVE=1
+  for ref in "${refs[@]}"; do
+    local_ref="${ref%% *}"
+    remote_ref="${ref#* }"
+    git push "$remote" "${local_ref}:${remote_ref}"
+  done
+  exit 1
 fi
 
 exit 0
