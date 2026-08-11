@@ -17,13 +17,13 @@ frontend_prepare_path() {
   export PATH="/opt/alt/alt-nodejs22/root/usr/bin:/opt/alt/alt-nodejs20/root/usr/bin:${PATH:-}"
 }
 
-frontend_assets_missing() {
+frontend_assets_ok() {
   local root
   root="$(frontend_root)"
   cd "$root"
 
   if [ ! -f public/build/manifest.json ]; then
-    return 0
+    return 1
   fi
 
   php -r '
@@ -69,18 +69,19 @@ frontend_build_production() {
   echo "    npm run build"
   npm run build
 
-  if frontend_assets_missing; then
-    echo "ERROR: Frontend build finished but public/build assets are incomplete."
-    return 1
+  if frontend_assets_ok; then
+    echo "    public/build OK"
+    return 0
   fi
 
-  echo "    public/build OK"
+  echo "ERROR: Frontend build finished but public/build assets are incomplete."
+  return 1
 }
 
 frontend_ensure_production() {
   local mode="${1:-verify}"
 
-  if [ "$mode" = "always" ] || frontend_assets_missing; then
+  if [ "$mode" = "always" ] || ! frontend_assets_ok; then
     frontend_build_production
     return $?
   fi
