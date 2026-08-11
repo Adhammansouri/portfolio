@@ -1,1 +1,0 @@
-import{j as a,L as o}from"./app-D-qRNVm4.js";import{c as i}from"./SectionHeading-Co-HurF-.js";function c({href:s,children:t,className:e,external:n}){const r=i("text-link",e);return n?a.jsx("a",{href:s,target:"_blank",rel:"noreferrer",className:r,children:t}):a.jsx(o,{href:s,className:r,children:t})}export{c as T};
