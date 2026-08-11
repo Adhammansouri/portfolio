@@ -1,9 +1,10 @@
 import { Head, usePage } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
+import PortfolioMarkdown from '@/Components/PortfolioMarkdown';
 import ProjectRow from '@/Components/ProjectRow';
 import SectionHeading, { Section } from '@/Components/SectionHeading';
 import TextLink from '@/Components/ui/TextLink';
-import type { PageProps, ProjectItem } from '@/types';
+import type { Locale, LocalizedLinkMeta, PageProps, ProjectItem } from '@/types';
 import { localePath, useT } from '@/lib/utils';
 
 type Props = PageProps<{
@@ -11,9 +12,35 @@ type Props = PageProps<{
     related: ProjectItem[];
 }>;
 
+function linkHostname(url: string): string {
+    try {
+        return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+        return url;
+    }
+}
+
+function resolveLinkMeta(
+    value: LocalizedLinkMeta | undefined,
+    locale: Locale,
+): string | undefined {
+    if (!value) return undefined;
+    if (typeof value === 'string') return value;
+
+    return value[locale] ?? value.en;
+}
+
 export default function ProjectShow({ project, related }: Props) {
-    const { locale } = usePage<PageProps>().props;
+    const { locale = 'en' } = usePage<PageProps>().props;
     const t = useT();
+
+    const metaItems = [
+        resolveLinkMeta(project.links?.company, locale),
+        resolveLinkMeta(project.links?.note, locale),
+    ].filter(Boolean) as string[];
+
+    const hasLinks =
+        project.links?.live || metaItems.length > 0;
 
     return (
         <AppLayout>
@@ -64,49 +91,57 @@ export default function ProjectShow({ project, related }: Props) {
                         </ul>
                     </div>
 
-                    <div>
-                        <h2 className="eyebrow">{t('projects.links')}</h2>
-                        <ul className="mt-3 space-y-2 text-sm sm:mt-4">
-                            {project.links?.live && (
-                                <li>
-                                    <a
-                                        href={project.links.live}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-link"
+                    {hasLinks && (
+                        <div className="project-links-panel">
+                            <h2 className="eyebrow eyebrow-dot">
+                                {t('projects.links')}
+                            </h2>
+
+                            <ul className="project-links-list">
+                                {project.links?.live && (
+                                    <li>
+                                        <a
+                                            href={project.links.live}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="project-link-card"
+                                        >
+                                            <span className="project-link-body">
+                                                <span className="project-link-label">
+                                                    {t('projects.live')}
+                                                </span>
+                                                <span className="project-link-host">
+                                                    {linkHostname(
+                                                        project.links.live,
+                                                    )}
+                                                </span>
+                                            </span>
+                                            <span
+                                                className="project-link-arrow"
+                                                aria-hidden
+                                            >
+                                                ↗
+                                            </span>
+                                        </a>
+                                    </li>
+                                )}
+
+                                {metaItems.map((item) => (
+                                    <li
+                                        key={item}
+                                        className="project-link-meta"
                                     >
-                                        {t('projects.live')}
-                                    </a>
-                                </li>
-                            )}
-                            {project.links?.github && (
-                                <li>
-                                    <a
-                                        href={project.links.github}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="text-link"
-                                    >
-                                        {t('projects.github')}
-                                        {project.links.github_note === 'private'
-                                            ? ` (${t('projects.privateRepo')})`
-                                            : ''}
-                                    </a>
-                                </li>
-                            )}
-                            {project.links?.company && (
-                                <li className="text-ink/70">{project.links.company}</li>
-                            )}
-                            {project.links?.note && (
-                                <li className="text-ink/70">{project.links.note}</li>
-                            )}
-                        </ul>
-                    </div>
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
                 {project.body_md && (
-                    <div className="prose-portfolio mt-10 max-w-3xl whitespace-pre-wrap text-sm leading-relaxed text-ink/75 sm:mt-14">
-                        {project.body_md}
+                    <div className="prose-portfolio mt-10 max-w-3xl text-sm sm:mt-14">
+                        <PortfolioMarkdown content={project.body_md} />
                     </div>
                 )}
             </Section>

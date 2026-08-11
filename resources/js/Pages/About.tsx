@@ -2,10 +2,10 @@ import { Head, usePage } from '@inertiajs/react';
 import { motion, useReducedMotion } from 'motion/react';
 import AppLayout from '@/Layouts/AppLayout';
 import SectionHeading, { Section } from '@/Components/SectionHeading';
-import { ArrowIcon, ButtonLink } from '@/Components/ui/Button';
+import { ArrowIcon, ButtonLink, WhatsAppIcon } from '@/Components/ui/Button';
 import PageHeader from '@/Components/ui/PageHeader';
 import type { PageProps, Profile } from '@/types';
-import { localePath, useT } from '@/lib/utils';
+import { localePath, useT, whatsappContactUrl } from '@/lib/utils';
 
 type Props = PageProps<{
     profile: Profile;
@@ -46,6 +46,7 @@ export default function About({ profile, skills }: Props) {
     const { locale } = usePage<PageProps>().props;
     const reduce = useReducedMotion();
     const links = contactLinks(profile, t);
+    const whatsappHref = whatsappContactUrl(profile.phone, t('whatsapp.prefill'));
 
     return (
         <AppLayout>
@@ -146,12 +147,15 @@ export default function About({ profile, skills }: Props) {
                             className="mt-6 sm:mt-8"
                         >
                             <ButtonLink
-                                href={localePath(locale, 'contact')}
+                                href={whatsappHref ?? localePath(locale, 'contact')}
+                                external={Boolean(whatsappHref)}
                                 variant="primary"
                                 className="group"
+                                leadingIcon={<WhatsAppIcon className="text-[#25D366]" />}
                                 icon={<ArrowIcon />}
+                                aria-label={t('cta.whatsapp')}
                             >
-                                {t('cta.contact')}
+                                {t('cta.whatsapp')}
                             </ButtonLink>
                         </motion.div>
                     </div>

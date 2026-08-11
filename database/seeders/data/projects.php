@@ -11,8 +11,6 @@ return [
         'stack' => ['Expo', 'React Native', 'NestJS', 'Prisma', 'MySQL', 'OpenAI GPT-4o', 'Next.js', 'Firebase FCM'],
         'links' => [
             'live' => 'https://nazm.life/',
-            'github' => 'https://github.com/Adhammansouri/nazm',
-            'github_note' => 'private',
         ],
         'translations' => [
             'en' => [
@@ -78,8 +76,6 @@ return [
         'stack' => ['Node.js', 'OpenAI API', 'React', 'Vite', 'ECharts', 'Puppeteer', 'Express'],
         'links' => [
             'live' => 'https://www.securesist.com/',
-            'github' => 'https://github.com/productsmeta/securesist-API',
-            'github_note' => 'private',
             'company' => 'Productsmeta · SECURESIST',
         ],
         'translations' => [
@@ -90,7 +86,7 @@ return [
                 'challenge' => 'SECURESIST needed one accountable owner for the full AI stack: conversational help, measurable security insights, compliance reporting, and role-scoped UX — without leaking data across tenants or roles.',
                 'solution' => 'Owned AI end-to-end: OpenAI chat with persistence and executive context; intent classification, risk scoring, training analytics, and compliance mapping; management summaries and Puppeteer PDF/Excel (Arabic RTL); vendor/user credit pools with middleware; React AiAssistant, AiExecutiveDashboard, and AiUserDashboard with ECharts, export, and portal-wide sidebar integration.',
                 'results' => 'Every AI feature in the app shipped under my ownership (~23 commits API + front, May–Aug 2025); assistant, analytics dashboards, and compliance AI live in production across all SECURESIST roles.',
-                'body_md' => "## My role\nSole owner of **all AI** in the SECURESIST application — backend services, billing, exports, and front-end surfaces.\n\n## API (securesist-API)\n- `chatController` + AI conversation/message models\n- `aiAnalyticsController`, `aiComplianceController`, executive summary service\n- Intent classification, risk score engine, training analytics, compliance mapping\n- Vendor/user AI credit pools with role middleware\n- Puppeteer HTML→PDF compliance exports (Noto, RTL)\n\n## Front (securesist-front)\n- `AiAssistant` — chat sidebar, credits badge, reduced-motion typewriter\n- `AiExecutiveDashboard` / `AiUserDashboard` — ECharts, export, executive context banner\n- Sidebar integration for Sales, Business Owner, and User portals\n\nRepos are private (Productsmeta org); demo on request.",
+                'body_md' => "## My role\nSole owner of **all AI** in the SECURESIST application — backend services, billing, exports, and front-end surfaces.\n\n## Backend\n- `chatController` + AI conversation/message models\n- `aiAnalyticsController`, `aiComplianceController`, executive summary service\n- Intent classification, risk score engine, training analytics, compliance mapping\n- Vendor/user AI credit pools with role middleware\n- Puppeteer HTML→PDF compliance exports (Noto, RTL)\n\n## Front-end\n- `AiAssistant` — chat sidebar, credits badge, reduced-motion typewriter\n- `AiExecutiveDashboard` / `AiUserDashboard` — ECharts, export, executive context banner\n- Sidebar integration for Sales, Business Owner, and User portals",
             ],
             'ar' => [
                 'title' => 'SECURESIST — مسؤول الذكاء الاصطناعي في التطبيق',
@@ -99,39 +95,42 @@ return [
                 'challenge' => 'SECURESIST احتاج مسؤول واحد عن طبقة AI كاملة: مساعدة محادثة، رؤى أمنية قابلة للقياس، تقارير امتثال، وتجربة مستخدم معزولة حسب الدور — دون تسريب بيانات بين tenants أو الأدوار.',
                 'solution' => 'تملّكت AI من الطرف للطرف: محادثة OpenAI مع سياق تنفيذي، تصنيف نيات ودرجة مخاطر وتحليل تدريب وامتثال، ملخصات إدارية وتصدير PDF/Excel بـ Puppeteer (RTL)، أرصدة AI للبائعين والمستخدمين مع middleware، وAiAssistant وAiExecutiveDashboard وAiUserDashboard بـ ECharts وتصدير وتكامل في كل البوابات.',
                 'results' => 'كل ميزات AI في التطبيق تحت مسؤوليتي (حوالي ٢٣ commit على API والواجهة، مايو–أغسطس ٢٠٢٥): المساعد، لوحات التحليلات، وامتثال AI في الإنتاج لكل أدوار SECURESIST.',
-                'body_md' => "## دوري\nالمسؤول عن **كل الذكاء الاصطناعي** في تطبيق SECURESIST — الخدمات الخلفية، الفوترة، التصدير، وواجهات المستخدم.\n\n## API\n- محادثة AI ونماذج الرسائل\n- تحليلات وامتثال وملخص تنفيذي\n- تصنيف نيات ومخاطر وتدريب وامتثال\n- أرصدة AI للبائعين والمستخدمين\n- تصدير PDF امتثال (RTL)\n\n## الواجهة\n- AiAssistant وشارة الأرصدة\n- لوحات تنفيذية ومستخدم بـ ECharts\n- تكامل في بوابات Sales وBusiness Owner وUser\n\nالمستودعات خاصة (Productsmeta)؛ عرض تجريبي عند الطلب.",
+                'body_md' => "## دوري\nالمسؤول عن **كل الذكاء الاصطناعي** في تطبيق SECURESIST — الخدمات الخلفية، الفوترة، التصدير، وواجهات المستخدم.\n\n## الخلفية\n- محادثة AI ونماذج الرسائل\n- تحليلات وامتثال وملخص تنفيذي\n- تصنيف نيات ومخاطر وتدريب وامتثال\n- أرصدة AI للبائعين والمستخدمين\n- تصدير PDF امتثال (RTL)\n\n## الواجهة\n- AiAssistant وشارة الأرصدة\n- لوحات تنفيذية ومستخدم بـ ECharts\n- تكامل في بوابات Sales وBusiness Owner وUser",
             ],
         ],
     ],
     [
         'slug' => 'badr-docs-bot',
-        'category' => 'AI · Infrastructure',
+        'category' => 'AI · ERP',
         'featured' => true,
         'sort_order' => 4,
         'year' => '2025–2026',
         'cover' => null,
-        'stack' => ['Cloudflare Workers', 'Workers AI', 'Vectorize', 'TypeScript', 'Wrangler'],
+        'stack' => ['Laravel 11', 'Cloudflare Workers', 'Workers AI', 'Vectorize', 'TypeScript', 'Wrangler'],
         'links' => [
-            'note' => 'Powers AlBadr ERP assistant',
+            'note' => [
+                'en' => 'In-app assistant for AlBadr ERP (Badr Pro)',
+                'ar' => 'مساعد داخل تطبيق نظام البدر (Badr Pro)',
+            ],
         ],
         'translations' => [
             'en' => [
-                'title' => 'Badr Docs Bot',
-                'tagline' => 'Documentation-only RAG assistant for AlBadr ERP operators.',
-                'summary' => 'Cloudflare Worker that retrieves ERP how-to knowledge from Vectorize and answers with structured assistant cards — proxied securely from Laravel.',
-                'challenge' => 'Operators asked “where is this report?” and “how do I…?” while a general LLM risked inventing steps or mixing live customer data.',
-                'solution' => 'Ingested ERP markdown into Vectorize (bge-m3 embeddings), Llama 3.3 chat with fallback, intent routing, page-awareness, SSE streaming, and shared-secret auth so browsers never hit the Worker directly.',
-                'results' => 'Hundreds of knowledge chunks; eval scripts; production proxy from Badr Pro assistant UI.',
-                'body_md' => "Architecture: User → Laravel `/assistant/chat/stream` → Worker `/chat/stream` → Vectorize + Workers AI.\n\nModels: `@cf/baai/bge-m3`, `@cf/meta/llama-3.3-70b-instruct-fp8-fast`, Qwen fallback.",
+                'title' => 'Badr ERP Assistant',
+                'tagline' => 'Professional in-app AI assistant for AlBadr ERP — how-tos, navigation, live data, and docs RAG.',
+                'summary' => 'Hybrid Laravel + Cloudflare assistant: streaming chat with structured cards, intent routing, page awareness, live sales/inventory tools, and Vectorize-backed ERP knowledge — proxied securely from Badr Pro.',
+                'challenge' => 'Operators needed a professional in-app assistant that answers “how do I…?”, finds reports, navigates screens, and surfaces today’s sales or stock levels — without a general LLM inventing steps or mixing customer data.',
+                'solution' => 'Laravel intent router with live ERP tools (sales, purchases, low stock, navigation, report search); Cloudflare Worker with Vectorize RAG, page context, curated support cards, Llama 3.3 + fallback, MMR reranking, SSE streaming, and shared-secret auth.',
+                'results' => 'Production assistant in Badr Pro; hundreds of knowledge chunks; eval scripts; structured cards with steps, CTAs, and follow-up questions.',
+                'body_md' => "## Architecture\nUser → Laravel `/assistant/chat/stream` → Worker `/chat/stream` → Vectorize + Workers AI\n\n## Assistant capabilities\n1. **How-to & troubleshooting** — step-by-step cards from ERP docs (50+ reports indexed)\n2. **Navigation** — deep links to screens, reports, and modules\n3. **Page awareness** — answers about the screen the user is on\n4. **Live ERP tools** — today’s sales/purchases, low stock, top customers (Laravel-side)\n5. **Intent routing** — greetings, report help, where-is, live-data handoff\n6. **Streaming UX** — SSE with suggested questions and module CTAs\n\nModels: `@cf/baai/bge-m3`, `@cf/meta/llama-3.3-70b-instruct-fp8-fast`, Llama 3.1 fallback.",
             ],
             'ar' => [
-                'title' => 'بوت وثائق البدر',
-                'tagline' => 'مساعد RAG للوثائق فقط لمشغّلي نظام البدر.',
-                'summary' => 'Worker على Cloudflare يسترجع معرفة ERP من Vectorize ويجيب ببطاقات منظّمة — عبر Laravel بأمان.',
-                'challenge' => 'المشغّلون يسألون «فين التقرير؟» و«إزاي أعمل…؟» بينما نموذج عام قد يخترع خطوات أو يخلط بيانات العملاء.',
-                'solution' => 'فهرسة وثائق Markdown في Vectorize، دردشة Llama مع fallback، نيات، وعي بالصفحة، بث SSE، ومصادقة سرّ مشترك.',
-                'results' => 'مئات المقاطع المعرفية؛ سكربتات تقييم؛ بروكسي إنتاج من واجهة المساعد.',
-                'body_md' => 'المسار: المستخدم → Laravel → Worker → Vectorize + Workers AI.',
+                'title' => 'مساعد البدر ERP',
+                'tagline' => 'مساعد ذكاء اصطناعي احترافي داخل نظام البدر — شرح، تنقّل، بيانات حية، وRAG للوثائق.',
+                'summary' => 'مساعد هجين Laravel + Cloudflare: دردشة متدفقة ببطاقات منظّمة، توجيه نيات، وعي بالصفحة، أدوات مبيعات ومخزون حية، ومعرفة ERP من Vectorize — عبر بروكسي آمن من Badr Pro.',
+                'challenge' => 'المشغّلون احتاجوا مساعداً احترافياً داخل التطبيق يجاوب «إزاي أعمل…؟»، يلاقي التقارير، ينقّل للشاشات، ويعرض مبيعات اليوم أو نقص المخزون — بدون نموذج عام يخترع خطوات أو يخلط بيانات العملاء.',
+                'solution' => 'Laravel لتوجيه النيات وأدوات ERP الحية (مبيعات، مشتريات، مخزون، تنقّل، بحث تقارير)؛ Worker على Cloudflare مع Vectorize وRAG وسياق الصفحة وبطاقات دعم جاهزة وLlama مع fallback وإعادة ترتيب MMR وبث SSE ومصادقة سرّ مشترك.',
+                'results' => 'مساعد في الإنتاج داخل Badr Pro؛ مئات مقاطع المعرفة؛ سكربتات تقييم؛ بطاقات بخطوات وCTA وأسئلة متابعة.',
+                'body_md' => "## المسار\nالمستخدم → Laravel → Worker → Vectorize + Workers AI\n\n## قدرات المساعد\n1. **شرح وحل مشاكل** — بطاقات خطوة بخطوة من وثائق ERP (أكثر من ٥٠ تقريراً مفهرساً)\n2. **تنقّل** — روابط مباشرة للشاشات والتقارير والموديولات\n3. **وعي بالصفحة** — إجابات عن الشاشة الحالية للمستخدم\n4. **أدوات ERP حية** — مبيعات/مشتريات اليوم، نقص المخزون، أهم العملاء (من Laravel)\n5. **توجيه النيات** — ترحيب، مساعدة تقارير، فين ألاقي، تحويل لبيانات حية\n6. **تجربة متدفقة** — SSE مع أسئلة مقترحة وCTA للموديولات",
             ],
         ],
     ],
@@ -175,10 +174,7 @@ return [
         'year' => '2026',
         'cover' => null,
         'stack' => ['React 19', 'Vite', 'Firebase', 'Cloud Functions', 'Electron', 'SQLite', 'Tailwind'],
-        'links' => [
-            'github' => 'https://github.com/Adhammansouri/X-PAY',
-            'github_note' => 'private',
-        ],
+        'links' => [],
         'translations' => [
             'en' => [
                 'title' => 'X-PAY',
@@ -210,8 +206,6 @@ return [
         'stack' => ['Laravel 12', 'Tailwind 4', 'Alpine.js', 'MySQL', 'WhatsApp Baileys', 'PWA', 'Web Push'],
         'links' => [
             'live' => 'https://salmon-clam-918120.hostingersite.com/',
-            'github' => 'https://github.com/Adhammansouri/smash-academy',
-            'github_note' => 'private',
         ],
         'translations' => [
             'en' => [

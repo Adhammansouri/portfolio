@@ -21,5 +21,4 @@ Route::prefix('{locale}')
         Route::get('/experience', ExperienceController::class)->name('experience');
         Route::get('/about', AboutController::class)->name('about');
         Route::get('/contact', [ContactController::class, 'create'])->name('contact');
-        Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
     });

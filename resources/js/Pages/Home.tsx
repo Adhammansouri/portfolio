@@ -3,7 +3,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import Hero from '@/Components/Hero';
 import ProjectRow from '@/Components/ProjectRow';
 import SectionHeading, { Section } from '@/Components/SectionHeading';
-import { ArrowIcon, ButtonLink } from '@/Components/ui/Button';
+import { ArrowIcon, ButtonLink, WhatsAppIcon } from '@/Components/ui/Button';
 import TextLink from '@/Components/ui/TextLink';
 import type {
     CapabilityItem,
@@ -12,7 +12,7 @@ import type {
     Profile,
     ProjectItem,
 } from '@/types';
-import { localePath, useT } from '@/lib/utils';
+import { localePath, useT, whatsappContactUrl } from '@/lib/utils';
 
 type Props = PageProps<{
     profile: Profile;
@@ -29,6 +29,7 @@ export default function Home({
 }: Props) {
     const { locale } = usePage<PageProps>().props;
     const t = useT();
+    const whatsappHref = whatsappContactUrl(profile.phone, t('whatsapp.prefill'));
 
     return (
         <AppLayout>
@@ -154,12 +155,15 @@ export default function Home({
                         </p>
                     </div>
                     <ButtonLink
-                        href={localePath(locale, 'contact')}
+                        href={whatsappHref ?? localePath(locale, 'contact')}
+                        external={Boolean(whatsappHref)}
                         variant="inverse"
                         className="group shrink-0 self-start md:self-auto"
+                        leadingIcon={<WhatsAppIcon className="text-[#25D366]" />}
                         icon={<ArrowIcon />}
+                        aria-label={t('cta.whatsapp')}
                     >
-                        {t('cta.contact')}
+                        {t('cta.whatsapp')}
                     </ButtonLink>
                 </div>
             </section>

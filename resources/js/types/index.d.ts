@@ -21,12 +21,14 @@ export interface Profile {
     availability: string;
 }
 
+export type LocalizedLinkMeta = string | Partial<Record<Locale, string>>;
+
 export interface ProjectLinks {
     live?: string;
     github?: string;
     github_note?: string;
-    company?: string;
-    note?: string;
+    company?: LocalizedLinkMeta;
+    note?: LocalizedLinkMeta;
 }
 
 export interface ProjectItem {

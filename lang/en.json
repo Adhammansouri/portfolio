@@ -45,11 +45,8 @@
     "about.linkedin": "LinkedIn",
     "about.github": "GitHub",
     "contact.title": "Contact",
-    "contact.lead": "Tell me about the problem you’re solving.",
-    "contact.name": "Name",
-    "contact.email": "Email",
-    "contact.message": "Message",
-    "contact.success": "Message sent — I’ll get back to you soon.",
+    "contact.lead": "Reach me on WhatsApp — tell me about the problem you’re solving.",
+    "contact.whatsappHint": "Opens WhatsApp with a starter message you can edit before sending.",
     "footer.rights": "All rights reserved.",
     "footer.built": "Built with Laravel + Inertia + React"
 }

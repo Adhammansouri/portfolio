@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { motion, useReducedMotion } from 'motion/react';
 import type { PageProps, ProjectItem } from '@/types';
-import { localePath, useT } from '@/lib/utils';
+import { localePath } from '@/lib/utils';
 
 export default function ProjectRow({
     project,
@@ -11,7 +11,6 @@ export default function ProjectRow({
     index?: number;
 }) {
     const { locale } = usePage<PageProps>().props;
-    const t = useT();
     const reduce = useReducedMotion();
     const stackPreview = project.stack.slice(0, 3).join(' · ');
 
@@ -44,11 +43,6 @@ export default function ProjectRow({
                     <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink/60 md:text-[0.9375rem]">
                         {project.tagline || project.summary}
                     </p>
-                    {project.links?.github_note === 'private' && (
-                        <p className="mt-2 text-xs text-steel/80">
-                            {t('projects.privateRepo')}
-                        </p>
-                    )}
                     {/* Stack visible on mobile below description */}
                     <p className="mt-3 text-xs tracking-wide text-steel md:hidden">
                         {stackPreview}

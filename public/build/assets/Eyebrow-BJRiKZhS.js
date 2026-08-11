@@ -1,1 +1,0 @@
-import{j as s}from"./app-Cup1UHQj.js";import{c as t}from"./SectionHeading-D4VVoiPg.js";function n({children:o,className:r,dot:e=!1}){return s.jsx("p",{className:t("eyebrow",e&&"eyebrow-dot",r),children:o})}export{n as E};

@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
         <meta name="theme-color" content="#0B1220">
-        <link rel="icon" href="/images/adham-mansour-logo.png?v=2" type="image/png">
-        <link rel="apple-touch-icon" href="/images/adham-mansour-logo.png?v=2">
+        <link rel="icon" href="/images/adham-mansour-logo.png?v=4" type="image/png">
+        <link rel="apple-touch-icon" href="/images/adham-mansour-logo.png?v=4">
 
         <title inertia>{{ config('app.name', 'Adham Mansour') }}</title>
 

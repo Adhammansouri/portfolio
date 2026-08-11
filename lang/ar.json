@@ -45,11 +45,8 @@
     "about.linkedin": "LinkedIn",
     "about.github": "GitHub",
     "contact.title": "تواصل",
-    "contact.lead": "احكِ لي عن المشكلة التي تحلّها.",
-    "contact.name": "الاسم",
-    "contact.email": "البريد",
-    "contact.message": "الرسالة",
-    "contact.success": "تم الإرسال — سأرد عليك قريباً.",
+    "contact.lead": "تواصل معي على واتساب — احكِ لي عن المشكلة التي تحلّها.",
+    "contact.whatsappHint": "يفتح واتساب برسالة جاهزة يمكنك تعديلها قبل الإرسال.",
     "footer.rights": "جميع الحقوق محفوظة.",
     "footer.built": "مبني بـ Laravel + Inertia + React"
 }

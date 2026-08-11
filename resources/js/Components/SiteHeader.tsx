@@ -19,14 +19,54 @@ const drawerListMotion = {
     show: {
         transition: { staggerChildren: 0.055, delayChildren: 0.1 },
     },
+    exit: {
+        transition: { staggerChildren: 0.04, staggerDirection: -1 },
+    },
 };
 
 const drawerItemMotion = {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 10 },
     show: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.36, ease: EASE_SMOOTH },
+        transition: { duration: 0.38, ease: EASE_SMOOTH },
+    },
+    exit: {
+        opacity: 0,
+        y: 6,
+        transition: { duration: 0.3, ease: EASE_SMOOTH },
+    },
+};
+
+const drawerNavMotion = {
+    hidden: { opacity: 0, y: 12, scale: 0.988 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.44, ease: EASE_SMOOTH, delay: 0.06 },
+    },
+    exit: {
+        opacity: 0,
+        y: 10,
+        scale: 0.988,
+        transition: { duration: 0.36, ease: EASE_SMOOTH, delay: 0.08 },
+    },
+};
+
+const drawerFooterMotion = {
+    hidden: { opacity: 0, y: 12, scale: 0.988 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.44, ease: EASE_SMOOTH, delay: 0.16 },
+    },
+    exit: {
+        opacity: 0,
+        y: 10,
+        scale: 0.988,
+        transition: { duration: 0.36, ease: EASE_SMOOTH, delay: 0 },
     },
 };
 
@@ -42,32 +82,42 @@ function isNavActive(path: string, href: string, locale: string): boolean {
 }
 
 function MenuIcon({ open, reduce }: { open: boolean; reduce: boolean | null }) {
-    const duration = reduce ? 0 : 0.28;
+    const transition = reduce
+        ? { duration: 0 }
+        : { duration: 0.32, ease: EASE_SMOOTH };
 
     return (
         <span className="header-menu-icon" aria-hidden>
             <motion.span
-                className="header-menu-line header-menu-line--top"
+                className="header-menu-line"
                 animate={
                     open
-                        ? { top: '50%', rotate: 45, y: '-50%' }
-                        : { top: '22%', rotate: 0, y: 0 }
+                        ? { y: 0, rotate: 45, width: '100%' }
+                        : { y: -5, rotate: 0, width: '100%' }
                 }
-                transition={{ duration, ease: EASE_SMOOTH }}
+                transition={transition}
             />
             <motion.span
-                className="header-menu-line header-menu-line--mid"
-                animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-                transition={{ duration: duration * 0.75, ease: EASE_SMOOTH }}
-            />
-            <motion.span
-                className="header-menu-line header-menu-line--bottom"
+                className="header-menu-line"
                 animate={
                     open
-                        ? { bottom: '50%', rotate: -45, y: '50%' }
-                        : { bottom: '22%', rotate: 0, y: 0 }
+                        ? { opacity: 0, scaleX: 0, y: 0 }
+                        : { opacity: 1, scaleX: 1, y: 0 }
                 }
-                transition={{ duration, ease: EASE_SMOOTH }}
+                transition={
+                    reduce
+                        ? { duration: 0 }
+                        : { duration: 0.22, ease: EASE_SMOOTH }
+                }
+            />
+            <motion.span
+                className="header-menu-line"
+                animate={
+                    open
+                        ? { y: 0, rotate: -45, width: '100%' }
+                        : { y: 5, rotate: 0, width: '100%' }
+                }
+                transition={transition}
             />
         </span>
     );
@@ -131,11 +181,36 @@ export default function SiteHeader() {
     useScrollLock(menuOpen);
 
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 12);
+        let ticking = false;
+
+        const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+
+            requestAnimationFrame(() => {
+                setScrolled(window.scrollY > 24);
+                ticking = false;
+            });
+        };
+
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
+
+    useEffect(() => {
+        const root = document.documentElement;
+        const activeHeight =
+            menuOpen || !scrolled
+                ? 'var(--header-height)'
+                : 'var(--header-height-compact)';
+
+        root.style.setProperty('--header-active-height', activeHeight);
+
+        return () => {
+            root.style.removeProperty('--header-active-height');
+        };
+    }, [scrolled, menuOpen]);
 
     useEffect(() => {
         closeMenu();
@@ -152,10 +227,9 @@ export default function SiteHeader() {
         return () => window.removeEventListener('keydown', onKeyDown);
     }, [menuOpen, closeMenu]);
 
-    const slideFrom = dir === 'rtl' ? '-100%' : '100%';
     const drawerTween = reduce
         ? { duration: 0 }
-        : { type: 'tween' as const, ease: EASE_SMOOTH, duration: 0.38 };
+        : { type: 'tween' as const, ease: EASE_SMOOTH, duration: 0.36 };
 
     return (
         <>
@@ -166,7 +240,7 @@ export default function SiteHeader() {
                     menuOpen && 'site-header--menu-open',
                 )}
             >
-                <div className="header-inner">
+                <div className="header-inner surface-shell surface-shell--glass">
                     <Link
                         href={localePath(locale)}
                         className="header-brand group"
@@ -174,12 +248,11 @@ export default function SiteHeader() {
                     >
                         <span className="header-brand-mark">
                             <img
-                                src="/images/adham-mansour-logo.png?v=2"
+                                src="/images/adham-mansour-logo.png?v=4"
                                 alt=""
                                 width={64}
                                 height={64}
                                 decoding="async"
-                                className="h-full w-full object-cover"
                             />
                         </span>
                         <span className="header-brand-name">Adham Mansour</span>
@@ -275,7 +348,7 @@ export default function SiteHeader() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={
-                            reduce ? { duration: 0 } : { duration: 0.28, ease: EASE_SMOOTH }
+                            reduce ? { duration: 0 } : { duration: 0.38, ease: EASE_SMOOTH }
                         }
                     >
                         <motion.button
@@ -287,7 +360,7 @@ export default function SiteHeader() {
                             transition={
                                 reduce
                                     ? { duration: 0 }
-                                    : { duration: 0.32, ease: EASE_SMOOTH }
+                                    : { duration: 0.34, ease: EASE_SMOOTH }
                             }
                             onClick={closeMenu}
                             aria-label="Close menu"
@@ -299,89 +372,99 @@ export default function SiteHeader() {
                             role="dialog"
                             aria-modal="true"
                             aria-label={locale === 'ar' ? 'قائمة التنقل' : 'Navigation menu'}
-                            initial={
-                                reduce
-                                    ? false
-                                    : { x: slideFrom, opacity: 0.94 }
-                            }
-                            animate={{ x: 0, opacity: 1 }}
-                            exit={
-                                reduce
-                                    ? undefined
-                                    : { x: slideFrom, opacity: 0.94 }
-                            }
+                            initial={reduce ? false : { opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={reduce ? undefined : { opacity: 0 }}
                             transition={drawerTween}
                         >
-                            <div className="mobile-drawer-mesh" aria-hidden />
-                            <div className="mobile-drawer-grain" aria-hidden />
+                            <motion.div
+                                className="mobile-drawer-nav-scroll surface-shell surface-shell--panel surface-shell--glass"
+                                variants={reduce ? undefined : drawerNavMotion}
+                                initial="hidden"
+                                animate="show"
+                                exit="exit"
+                            >
+                                <div className="mobile-drawer-mesh" aria-hidden />
+                                <div className="mobile-drawer-grain" aria-hidden />
 
-                            <div className="mobile-drawer-nav">
-                                <motion.p
-                                    className="mobile-drawer-label"
-                                    initial={reduce ? false : { opacity: 0, y: 6 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={
-                                        reduce
-                                            ? { duration: 0 }
-                                            : { duration: 0.3, ease: EASE_SMOOTH, delay: 0.08 }
-                                    }
-                                >
-                                    {locale === 'ar' ? 'التنقل' : 'Navigate'}
-                                </motion.p>
+                                <div className="mobile-drawer-nav-inner">
+                                    <motion.p
+                                        className="mobile-drawer-label"
+                                        initial={reduce ? false : { opacity: 0, y: 6 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={
+                                            reduce
+                                                ? undefined
+                                                : {
+                                                      opacity: 0,
+                                                      y: 4,
+                                                      transition: {
+                                                          duration: 0.28,
+                                                          ease: EASE_SMOOTH,
+                                                      },
+                                                  }
+                                        }
+                                        transition={
+                                            reduce
+                                                ? { duration: 0 }
+                                                : { duration: 0.34, ease: EASE_SMOOTH, delay: 0.1 }
+                                        }
+                                    >
+                                        {locale === 'ar' ? 'التنقل' : 'Navigate'}
+                                    </motion.p>
 
-                                <motion.ul
-                                    className="mobile-drawer-list"
-                                    variants={reduce ? undefined : drawerListMotion}
-                                    initial="hidden"
-                                    animate="show"
-                                >
-                                    {nav.map((item, index) => {
-                                        const active = isNavActive(
-                                            currentPath,
-                                            item.href,
-                                            locale,
-                                        );
-                                        const Icon = navIcons[item.key];
+                                    <motion.ul
+                                        className="mobile-drawer-list"
+                                        variants={reduce ? undefined : drawerListMotion}
+                                        initial="hidden"
+                                        animate="show"
+                                        exit="exit"
+                                    >
+                                        {nav.map((item, index) => {
+                                            const active = isNavActive(
+                                                currentPath,
+                                                item.href,
+                                                locale,
+                                            );
+                                            const Icon = navIcons[item.key];
 
-                                        return (
-                                            <motion.li
-                                                key={item.key}
-                                                variants={reduce ? undefined : drawerItemMotion}
-                                            >
-                                                <Link
-                                                    href={item.href}
-                                                    className={cn(
-                                                        'mobile-drawer-link',
-                                                        active && 'mobile-drawer-link--active',
-                                                    )}
-                                                    onClick={closeMenu}
+                                            return (
+                                                <motion.li
+                                                    key={item.key}
+                                                    variants={reduce ? undefined : drawerItemMotion}
                                                 >
-                                                    <span className="mobile-drawer-link-icon">
-                                                        <Icon className="h-5 w-5" />
-                                                    </span>
-                                                    <span className="mobile-drawer-link-text">
-                                                        <span className="mobile-drawer-link-index">
-                                                            {String(index + 1).padStart(2, '0')}
+                                                    <Link
+                                                        href={item.href}
+                                                        className={cn(
+                                                            'mobile-drawer-link',
+                                                            active && 'mobile-drawer-link--active',
+                                                        )}
+                                                        onClick={closeMenu}
+                                                    >
+                                                        <span className="mobile-drawer-link-icon">
+                                                            <Icon className="h-5 w-5" />
                                                         </span>
-                                                        {item.label}
-                                                    </span>
-                                                    <ArrowEndIcon className="mobile-drawer-link-arrow h-4 w-4" />
-                                                </Link>
-                                            </motion.li>
-                                        );
-                                    })}
-                                </motion.ul>
-                            </div>
+                                                        <span className="mobile-drawer-link-text">
+                                                            <span className="mobile-drawer-link-index">
+                                                                {String(index + 1).padStart(2, '0')}
+                                                            </span>
+                                                            {item.label}
+                                                        </span>
+                                                        <ArrowEndIcon className="mobile-drawer-link-arrow h-4 w-4" />
+                                                    </Link>
+                                                </motion.li>
+                                            );
+                                        })}
+                                    </motion.ul>
+                                </div>
+                            </motion.div>
 
                             <motion.div
-                                className="mobile-drawer-footer"
-                                initial={reduce ? false : { opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={
-                                    reduce
-                                        ? { duration: 0 }
-                                        : { duration: 0.34, ease: EASE_SMOOTH, delay: 0.22 }
-                                }
+                                className="mobile-drawer-footer surface-shell surface-shell--glass"
+                                variants={reduce ? undefined : drawerFooterMotion}
+                                initial="hidden"
+                                animate="show"
+                                exit="exit"
                             >
                                 <a
                                     href="/resume"

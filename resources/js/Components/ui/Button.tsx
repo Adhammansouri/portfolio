@@ -32,6 +32,8 @@ type ButtonProps = BaseProps &
 type LinkButtonProps = BaseProps & {
     href: string;
     external?: boolean;
+    leadingIcon?: ReactNode;
+    'aria-label'?: string;
 };
 
 export function Button({
@@ -60,14 +62,23 @@ export function ButtonLink({
     className,
     children,
     icon,
+    leadingIcon,
     href,
     external,
+    'aria-label': ariaLabel,
 }: LinkButtonProps) {
     const classes = cn('btn', variants[variant], sizes[size], className);
 
     if (external) {
         return (
-            <a href={href} target="_blank" rel="noreferrer" className={classes}>
+            <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className={classes}
+                aria-label={ariaLabel}
+            >
+                {leadingIcon}
                 {children}
                 {icon}
             </a>
@@ -75,7 +86,8 @@ export function ButtonLink({
     }
 
     return (
-        <Link href={href} className={classes}>
+        <Link href={href} className={classes} aria-label={ariaLabel}>
+            {leadingIcon}
             {children}
             {icon}
         </Link>
