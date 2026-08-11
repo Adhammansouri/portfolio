@@ -55,7 +55,7 @@ GitHub Actions runs `deploy/hostinger.sh` on the server after every push to `mai
 
 - **pre-push hook:** builds and force-commits `public/build` before `main` is pushed.
 - **GitHub Action:** SSH deploy on every push to `main`.
-- **hostinger.sh:** always runs `npm ci && npm run build` on the server, so missing gitignored assets cannot break the site.
+- **hostinger.sh:** verifies `public/build` from git; only runs `npm build` on the server if assets are missing (shared hosting may not have enough CPU for Vite).
 
 ## Connected (hPanel)
 

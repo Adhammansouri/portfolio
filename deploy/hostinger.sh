@@ -86,7 +86,7 @@ echo "==> Frontend build"
 # shellcheck source=lib/frontend-build.sh
 source "${ROOT}/deploy/lib/frontend-build.sh"
 FRONTEND_ROOT="$ROOT"
-frontend_ensure_production always
+frontend_ensure_production verify
 
 echo "==> Permissions"
 chmod -R ug+rwx storage bootstrap/cache 2>/dev/null || true
